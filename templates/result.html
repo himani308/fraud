@@ -1,0 +1,122 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div class="dashboards">
+
+    <!-- TITLE -->
+    <div class="dashboard-headers">
+        <h2 style="color: aliceblue;"> Fraud Detection Dashboard</h2>
+        <p class="subtitles" style="color: aliceblue;">Real-time Transaction Risk Analysis</p>
+    </div>
+
+    <div class="dashboard-grids">
+
+        <!-- LEFT CARD -->
+        <div class="cards risk-cards">
+
+            <h4 class="card-titles" style="color: aliceblue;">Risk Meter</h4>
+
+            <div class="gauge-containers">
+                <div class="gauges">
+
+                    <div class="gauge-bgs"></div>
+
+                    <div class="gauge-fills"
+                         style="transform: rotate({{ (probability * 180) | round(2) }}deg);">
+                    </div>
+
+                    <div class="gauge-centers">
+                        <span>{{ (probability * 100) | round(1) }}%</span>
+                        <p>Risk</p>
+                    </div>
+
+                </div>
+            </div>
+
+          {% if risk == "HIGH" %}
+    <div class="alerts high-alerts">
+        Transaction Blocked. Your balance is safe (no deduction).
+    </div>
+
+{% elif risk == "MEDIUM" %}
+    <div class="alerts medium-alerts">
+     OTP verification required. Amount will be deducted after verification.
+    </div>
+
+{% else %}
+    <div class="alerts low-alerts">
+        Transaction successful. Amount deducted from your account.
+    </div>
+{% endif %}
+
+            <p class="action-texts">{{ action }}</p>
+
+        </div>
+
+        <!-- RIGHT CARD -->
+        <div class="cards details-cards">
+
+            <h4 class="card-titles">Transaction Summary</h4>
+
+            <div class="info-grids">
+                <div class="info-items"><span>Name: </span><strong>{{ name }}</strong></div>
+                <div class="info-items"><span>Transfer To:</span><strong>{{ request.form.transfer_to }}</strong></div>
+                <div class="info-items"><span>Amount:</span><strong>₹{{ request.form.amount }}</strong></div>
+                <div class="info-items"><span>Balance</span><strong>₹{{ balance }}</strong></div>
+                <div class="info-items"><span>Remaining Balance</span> <strong>₹{{ remaining_balance }}</strong>
+</div>
+            </div>
+
+            <h5 class="section-titles"> Security Checks</h5>
+
+            <div class="check-lists">
+
+                <div class="check-items">
+                    Device Change
+                    <span class="{{ 'danger' if request.form.device_change == '1' else 'success' }}">
+                        {{ 'Yes' if request.form.device_change == '1' else 'No' }}
+                    </span>
+                </div>
+
+                <div class="check-items">
+                    Location Change
+                    <span class="{{ 'danger' if request.form.location_change == '1' else 'success' }}">
+                        {{ 'Yes' if request.form.location_change == '1' else 'No' }}
+                    </span>
+                </div>
+
+                <div class="check-items">
+                    Biometric
+                    <span class="{{ 'success' if request.form.biometric == '1' else 'danger' }}">
+                        {{ 'Verified' if request.form.biometric == '1' else 'Not Verified' }}
+                    </span>
+                </div>
+
+            </div>
+
+            <h5 class="section-titles">Recommendation</h5>
+
+            {% if risk == "HIGH" %}
+                <div class="alerts high-alerts">
+                     Transaction blocked. Contact bank immediately.
+                </div>
+            {% elif risk == "MEDIUM" %}
+                <div class="alerts medium-alerts">
+                     OTP verification required.
+                </div>
+            {% else %}
+                <div class="alerts low-alerts">
+                    Transaction is safe.
+                </div>
+            {% endif %}
+
+            <div class="btn-container">
+                <a href="{{url_for('fraud')}}" class="btn-primary"> New Transaction</a>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

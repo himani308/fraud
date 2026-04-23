@@ -1,0 +1,255 @@
+{% extends "layout.html" %}
+{% block content %}
+  <section class="banner-area">
+            <div class="banner-overlay">
+                <div class="banner-text text-center">
+                    <div class="container">
+                        <!-- Section Title Starts -->
+                        <div class="row text-center">
+                            <div class="col-xs-12">
+                                <!-- Title Starts -->
+                                <h2 class="title-head">Fraud <span>Detection</span></h2>
+                                <!-- Title Ends -->
+                                <hr>
+                                <!-- Breadcrumb Starts -->
+                                <ul class="breadcrumb">
+                                    <li><a href="index-2.html"> home</a></li>
+                                    <li>Fraud detection</li>
+                                </ul>
+                                <!-- Breadcrumb Ends -->
+                            </div>
+                        </div>
+                        <!-- Section Title Ends -->
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Banner Area Starts -->
+        <!-- Shopping Checkout Section Starts -->
+        <section class="shop-checkout">
+			<!-- Billing Details Starts -->
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12">
+                       
+                 <form class="row" method="POST" action="{{url_for('predict')}}">
+
+<!-- Name -->
+<div class="col-md-4">
+    <div class="form-group">
+        <label>Full Name</label>
+        <input type="text" name="name" placeholder="Enter your name" class="form-control" required>
+    </div>
+</div>
+
+<!-- Transfer To -->
+<div class="col-md-4">
+    <div class="form-group">
+        <label>Transfer To (Receiver Name)</label>
+        <input type="text" name="transfer_to" placeholder="Enter receiver name" class="form-control" required>
+    </div>
+</div>
+
+<!-- Mobile -->
+<div class="col-md-4">
+    <div class="form-group">
+        <label>Mobile Number</label>
+        <input type="text" name="mobile" placeholder="Enter mobile number" class="form-control" required>
+    </div>
+</div>
+
+<!-- Amount -->
+<div class="col-md-4">
+    <div class="form-group">
+        <label>Transaction Amount (₹)</label>
+        <input type="number" name="amount" placeholder="Enter amount" class="form-control" required>
+    </div>
+</div>
+
+<!-- Balance -->
+<div class="col-md-4">
+    <div class="form-group">
+        <label>Available Balance (₹)</label>
+        <input type="number" name="balance" placeholder="Enter available balance" class="form-control" required>
+    </div>
+</div>
+
+<!-- Device Change -->
+<div class="col-md-4">
+    <div class="form-group">
+        <label>Are you using a new device?</label>
+        <select name="device_change" class="form-control">
+            <option value="0">No (mobile)</option>
+            <option value="1">Yes (desktop)</option>
+        </select>
+    </div>
+</div>
+
+<!-- Location Change -->
+<div class="col-md-4">
+    <div class="form-group">
+        <label>Are you in a different location?</label>
+        <select name="location_change" id="location_change" class="form-control">
+            <option value="0">No (Usual Location)</option>
+            <option value="1">Yes (New Location)</option>
+        </select>
+        <input type="hidden" name="real_location" id="real_location">
+<input type="hidden" name="latitude" id="latitude">
+<input type="hidden" name="longitude" id="longitude">
+    </div>
+</div>
+
+<!-- Transaction Time -->
+<div class="col-md-4">
+    <div class="form-group">
+        <label>Transaction Time (Hour)</label>
+        <input type="number" name="hour_change" id="hour_change" placeholder="0 - 23 (e.g., 14 for 2PM)" class="form-control">
+    </div>
+</div>
+
+<!-- Frequency -->
+<div class="col-md-4">
+    <div class="form-group">
+        <label>Transactions Today</label>
+        <input type="number" name="frequency" placeholder="How many transactions today?" class="form-control">
+    </div>
+</div>
+
+<!-- FACE CAPTURE -->
+<div class="col-md-6">
+    <div class="form-group text-center">
+        <label>Face Verification (Optional)</label><br>
+
+        <video id="video" width="200" height="150" autoplay></video><br>
+
+        <button type="button" onclick="captureImage()" class="btn btn-primary mt-2">
+            Capture Face
+        </button>
+
+        <p class="text-muted mt-2">Capture your face for extra security</p>
+
+      <!-- <video id="video" width="200" height="150" autoplay style="border:2px solid #ccc;"></video> -->
+<canvas id="canvas" width="200" height="150" style="border:2px solid #28a745;"></canvas>
+
+        <!-- IMPORTANT -->
+        <input type="hidden" name="biometric" id="biometric" value="0">
+        <input type="hidden" name="image_data" id="image_data">
+    </div>
+</div>
+
+<!-- Submit -->
+<div class="col-md-12 text-center mt-4">
+    <button type="submit" class="btn btn-success">
+        Detect Fraud Risk
+    </button>
+</div>
+
+</form>
+                    </div>
+                </div>
+            </div>
+           
+			<!-- Checkout Ends -->
+        </section>
+   <script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const video = document.getElementById("video");
+
+    // Start camera
+    navigator.mediaDevices.getUserMedia({ video: true })
+        .then(stream => {
+            video.srcObject = stream;
+        })
+        .catch(err => {
+            alert("Camera access denied or not working!");
+            console.error(err);
+        });
+
+});
+
+// Capture function
+function captureImage() {
+    const canvas = document.getElementById("canvas");
+    const context = canvas.getContext("2d");
+    const video = document.getElementById("video");
+
+    context.drawImage(video, 0, 0, 200, 150);
+
+    const imageData = canvas.toDataURL("image/png");
+
+    document.getElementById("image_data").value = imageData;
+
+    // Set biometric = 1
+    document.getElementById("biometric").value = "1";
+
+    // alert(" Face Captured Successfully!");
+}
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const now = new Date();          // current date & time
+    const currentHour = now.getHours();  // sirf hour (0–23)
+
+    document.getElementById("hour_change").value = currentHour;
+
+});
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const locationSelect = document.getElementById("location_change");
+
+    function detectLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                function(position) {
+                    const lat = position.coords.latitude;
+                    const lon = position.coords.longitude;
+
+                    document.getElementById("latitude").value = lat;
+                    document.getElementById("longitude").value = lon;
+
+                    // Convert to readable location
+                    fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`)
+                        .then(res => res.json())
+                        .then(data => {
+                            let loc = data.address.city || 
+                                      data.address.town || 
+                                      data.address.village || 
+                                      data.address.state;
+
+                            document.getElementById("real_location").value = loc;
+                        });
+                },
+                function(error) {
+                    console.log("Location error:", error);
+                    document.getElementById("real_location").value = "unknown";
+                }
+            );
+        }
+    }
+
+    locationSelect.addEventListener("change", function () {
+
+        if (this.value === "0") {
+            // SAME LOCATION → detect GPS
+            detectLocation();
+        } else {
+            // NEW LOCATION → mark as changed
+            document.getElementById("real_location").value = "Location Changed";
+            document.getElementById("latitude").value = "";
+            document.getElementById("longitude").value = "";
+        }
+
+    });
+
+    
+    if (locationSelect.value === "0") {
+        detectLocation();
+    }
+
+});
+</script>
+{% endblock %}

@@ -1,0 +1,131 @@
+
+{% extends "layout.html" %}
+{% block content %}
+<section class="about-page">
+    <div class="container">
+
+        <!-- TITLE -->
+        <div class="row text-center">
+            <div class="col-xs-12">
+                <h2 class="title" style="color: aliceblue;">Secure Crypto Transfer System</h2>
+                <p class="lead">
+                    AI-powered fraud detection system for safe banking and cryptocurrency transactions
+                </p>
+                <br>
+            </div>
+        </div>
+
+        <!-- ABOUT CONTENT -->
+        <div class="row">
+            <div class="col-md-6">
+                <h3>About Our Platform</h3>
+                <p style="font-size: 20px; ">
+                    Our system is designed to provide <strong>secure and intelligent transaction processing</strong>
+                    using advanced machine learning models. It helps identify fraudulent activities
+                    and protects users from financial risks.
+                </p>
+                <p style="font-size: 20px;">
+                    This platform is suitable for both <strong>banking systems</strong> and
+                    <strong>cryptocurrency platforms</strong>, ensuring trust and reliability.
+                </p>
+            </div>
+
+            <div class="col-md-6">
+                <img src="/static/images/crypto1.jpg" class="img-responsive img-thumbnail" alt="crypto">
+            </div>
+        </div>
+
+        <br><br>
+
+        <!-- FEATURES -->
+        <div class="row text-center">
+
+            <div class="col-md-4">
+                <div class="service-box">
+                    <i class="fa fa-shield fa-3x"></i>
+                    <h4 style="color: aliceblue;">Fraud Detection</h4>
+                    <p>Detects suspicious transactions using AI models.</p>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="service-box">
+                    <i class="fa fa-bolt fa-3x"></i>
+                    <h4 style="color: aliceblue;">Real-Time Analysis</h4>
+                    <p>Instant transaction analysis to prevent fraud.</p>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="service-box">
+                    <i class="fa fa-lock fa-3x"></i>
+                    <h4 style="color: aliceblue;">Secure Transfers</h4>
+                    <p>Ensures safe and encrypted transactions.</p>
+                </div>
+            </div>
+
+        </div>
+
+        <br><br>
+
+        <!-- HOW IT WORKS -->
+        <div class="row text-center">
+            <div class="col-xs-12">
+                <h3>How It Works</h3>
+                
+            </div>
+
+            <div class="col-md-3">
+                <h4>1</h4>
+                <p>Enter transaction details</p>
+            </div>
+
+            <div class="col-md-3">
+                <h4>2</h4>
+                <p>System analyzes data</p>
+            </div>
+
+            <div class="col-md-3">
+                <h4>3</h4>
+                <p>Risk score generated</p>
+            </div>
+
+            <div class="col-md-3">
+                <h4>4</h4>
+                <p>Fraud or safe result</p>
+            </div>
+        </div>
+
+        <br><br>
+
+        <!-- EXTRA INFO -->
+        <div class="row">
+            <div class="col-md-6">
+                <img src="/static/images/crypto2.jpg" class="img-responsive img-thumbnail" alt="security">
+            </div>
+
+            <div class="col-md-6">
+                <h3>Why Choose Us?</h3>
+                <p>
+                    We combine <strong>bank-level security</strong> with modern crypto technology.
+                    Our system ensures reliability, safety, and transparency in every transaction.
+                </p>
+
+                <ul class="list-unstyled">
+                    <li><i class="fa fa-check"></i> Secure Payment System</li>
+                    <li><i class="fa fa-check"></i> AI-Based Fraud Detection</li>
+                    <li><i class="fa fa-check"></i> Real-Time Monitoring</li>
+                    <li><i class="fa fa-check"></i> User-Friendly Interface</li>
+                </ul>
+
+                <br>
+
+                <a href="{{url_for('fraud')}}" class="btn btn-primary">
+                    Try Secure Payment
+                </a>
+            </div>
+        </div>
+
+    </div>
+</section>
+{% endblock %}

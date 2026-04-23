@@ -1,0 +1,664 @@
+
+{% extends "layout.html" %}
+{% block content %}
+<div class="container mt-5">
+
+    <h2 style="color:white;">Welcome, {{ user }} </h2>
+            <a href="{{url_for('logout')}}">Logout</a>
+
+    <div class="row mt-2">
+
+        <div  class="col-md-4">
+            <div class="card p-3 text-center" >
+                <h4 style="color:white;">Total Transactions</h4>
+                <h2 style="color:white;">{{ total }}</h2>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card p-3 text-center">
+                <h4 style="color:white;">Low Risk</h4>
+                <h2 style="color:green;">{{ risk['LOW'] }}</h2>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card p-3 text-center">
+                <h4 style="color:white;">High Risk</h4>
+                <h2 style="color:red;">{{ risk['HIGH'] }}</h2>
+            </div>
+        </div>
+
+        </div>
+         <div class="col-md-4">
+            <div class="card p-3 text-center">
+                
+            </div>
+    </div>
+</div>
+<!-- SELL BITCOIN SECTION -->
+<div class="container mt-5">
+    <div class="card shadow-lg border-0 rounded-4 p-4">
+
+        <!-- HEADER -->
+        <div class="text-center mb-4">
+            <h3 class="fw-bold text-dark">Sell Bitcoin</h3>
+            <p class="text-muted mb-0">Secure Transaction with Fraud Detection</p>
+        </div>
+
+        <form method="POST" action="/sell">
+
+            <!-- AMOUNT -->
+            <div class="mb-3">
+                <label class="form-label fw-semibold">Amount (BTC)</label>
+                <input type="number" step="0.001" name="amount"
+                       placeholder="Enter BTC amount"
+                       class="form-control form-control-lg rounded-3" required>
+            </div>
+
+            <!-- RECEIVER -->
+            <div class="mb-3">
+                <label class="form-label fw-semibold">Transfer To</label>
+                <input type="text" name="transfer_to"
+                       placeholder="Receiver Name"
+                       class="form-control form-control-lg rounded-3" required>
+            </div>
+
+            <!-- HIDDEN FIELDS -->
+            <input type="hidden" name="device_change" id="device_change">
+            <input type="hidden" name="latitude" id="latitude">
+            <input type="hidden" name="longitude" id="longitude">
+            <input type="hidden" name="biometric" id="biometric" value="0">
+            <input type="hidden" name="image_data" id="image_data">
+
+            <!-- FACE CAPTURE SECTION -->
+            <div class="text-center mt-4">
+
+                <label class="form-label fw-semibold">Face Verification</label>
+
+                <div class="row justify-content-center mt-3">
+
+    <!-- CAMERA -->
+    <div class="col-md-5 col-12 text-center mb-3">
+        <div class="border rounded-3 p-2 shadow-sm">
+            <video id="video" width="200" height="150" autoplay class="w-100 rounded"></video>
+            <p class="small text-muted mt-1 mb-0">Live Camera</p>
+        </div>
+    </div>
+
+    <!-- CANVAS -->
+    <div class="col-md-5 col-12 text-center mb-3">
+        <div class="border rounded-3 p-2 shadow-sm">
+            <canvas id="canvas" width="200" height="150" class="w-100 rounded"></canvas>
+            <p class="small text-muted mt-1 mb-0">Captured Image</p>
+        </div>
+    </div>
+
+</div>
+
+                <!-- CAPTURE BUTTON -->
+                <button type="button"
+                        onclick="captureImage()"
+                        class="btn btn-danger btn-lg rounded-3 mt-3 px-4">
+                    Capture Face
+                </button>
+<button type="submit"
+                        class="btn btn-success btn-lg rounded-3 fw-semibold">
+                     Buy Now
+                </button>
+            </div>
+
+           
+
+        </form>
+
+    </div>
+</div>
+     <div id="main-slide" class="carousel slide carousel-fade" data-ride="carousel">
+            <!-- Indicators Starts -->
+            <ol class="carousel-indicators visible-lg visible-md">
+                <li data-target="#main-slide" data-slide-to="0" class="active"></li>
+                <li data-target="#main-slide" data-slide-to="1"></li>
+                <li data-target="#main-slide" data-slide-to="2"></li>
+            </ol>
+            <!-- Indicators Ends -->
+            <!-- Carousel Inner Starts -->
+            <div class="carousel-inner">
+                <!-- Carousel Item Starts -->
+                <div class="item active bg-parallax item-1">
+                    <div class="slider-content">
+                        <div class="container">
+                            <div class="slider-text text-center">
+                                <h3 class="slide-title"><span>Secure</span> and <span>Easy Way</span><br/> To Detect Fraud</h3>
+                                <p>
+                                    <a href="#" class="slider btn btn-primary">Learn more</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Carousel Item Ends -->
+                <!-- Carousel Item Starts -->
+                <div class="item bg-parallax item-2">
+                    <div class="slider-content">
+                        <div class="col-md-12">
+                            <div class="container">
+                                <div class="slider-text text-center">
+                                    <h3 class="slide-title"><span>Credit</span> Risk <br/>You can <span>Trust</span> </h3>
+                                    <p>
+                                        <a href="pricing.html" class="slider btn btn-primary">our prices</a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Carousel Item Ends -->
+            </div>
+            <!-- Carousel Inner Ends -->
+            <!-- Carousel Controlers Starts -->
+            <a class="left carousel-control" href="index-2.html#main-slide" data-slide="prev">
+				<span><i class="fa fa-angle-left"></i></span>
+			</a>
+            <a class="right carousel-control" href="index-2.html#main-slide" data-slide="next">
+				<span><i class="fa fa-angle-right"></i></span>
+			</a>
+            <!-- Carousel Controlers Ends -->
+        </div>
+        <!-- Slider Ends -->
+        <!-- Features Section Starts -->
+       <section class="features">
+    <div class="container">
+        <div class="row features-row">
+
+            <!-- Feature 1 -->
+            <div class="feature-box col-md-4 col-sm-12">
+                <span class="feature-icon">
+                </span>
+                <div class="feature-box-content">
+                    <h3>AI Fraud Detection</h3>
+                    <p>Our intelligent system analyzes transactions in real-time to detect suspicious and fraudulent activities instantly.</p>
+                </div>
+            </div>
+
+            <!-- Feature 2 -->
+            <div class="feature-box col-md-4 col-sm-12">
+                <span class="feature-icon">
+                </span>
+                <div class="feature-box-content">
+                    <h3>Smart Risk Alerts</h3>
+                    <p>Medium-risk transactions trigger OTP verification while high-risk transactions are automatically blocked.</p>
+                </div>
+            </div>
+
+            <!-- Feature 3 -->
+            <div class="feature-box col-md-4 col-sm-12">
+                <span class="feature-icon">
+                </span>
+                <div class="feature-box-content">
+                    <h3>Live Monitoring Dashboard</h3>
+                    <p>Track all transactions, risk levels, and fraud insights through an interactive and user-friendly dashboard.</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+        <!-- Features Section Ends -->
+        <!-- About Section Starts -->
+    <section class="about-us">
+    <div class="container">
+
+        <!-- Title -->
+        <div class="row text-center">
+            <h2 class="title-head">About <span>System</span></h2>
+            <div class="title-head-subtitle">
+                <p>Smart AI-powered fraud detection system for secure digital transactions</p>
+            </div>
+        </div>
+
+        <!-- Content -->
+        <div class="row about-content">
+
+            <!-- Image -->
+            <div class="col-sm-12 col-md-5 col-lg-6 text-center">
+                <img class="img-responsive img-about-us" src="/static/images/OIP.jpeg" style="width: 600px;" alt="fraud detection">
+            </div>
+
+            <!-- Text Content -->
+            <div class="col-sm-12 col-md-7 col-lg-6">
+                <h3 class="title-about">WE SECURE YOUR TRANSACTIONS</h3>
+
+                <p class="about-text">
+                    Our Fraud Detection System uses advanced Machine Learning algorithms to monitor and analyze 
+                    financial transactions in real-time. It helps identify suspicious activities, prevent fraud, 
+                    and ensure safe digital payments for users.
+                </p>
+
+                <!-- Tabs -->
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#mission">Our Mission</a></li>
+                    <li><a data-toggle="tab" href="#advantages">Our Advantages</a></li>
+                    <li><a data-toggle="tab" href="#guarantee">Our Security</a></li>
+                </ul>
+
+                <div class="tab-content">
+
+                    <!-- Mission -->
+                    <div id="mission" class="tab-pane fade in active">
+                        <p>
+                            Our mission is to create a secure digital environment by detecting fraudulent 
+                            transactions instantly using AI models and reducing financial risks for users.
+                        </p>
+                    </div>
+
+                    <!-- Advantages -->
+                    <div id="advantages" class="tab-pane fade">
+                        <p>
+                            We provide real-time fraud detection, smart risk analysis, OTP-based verification 
+                            for medium-risk transactions, and automatic blocking for high-risk activities.
+                        </p>
+                    </div>
+
+                    <!-- Security -->
+                    <div id="guarantee" class="tab-pane fade">
+                        <p>
+                            Our system ensures maximum security using behavioral analysis, device tracking, 
+                            biometric verification, and transaction pattern monitoring.
+                        </p>
+                    </div>
+
+                </div>
+
+                <a class="btn btn-primary mt-3" href="/fraud">Try Detection</a>
+            </div>
+
+        </div>
+    </div>
+</section>
+        <!-- About Section Ends -->
+        <!-- Features and Video Section Starts -->
+    
+        <!-- Features and Video Section Ends -->
+        <!-- Pricing Starts -->
+        <section class="pricing">
+            <div class="container">
+                <!-- Section Title Starts -->
+                <div class="row text-center">
+                    <h2 class="title-head">affordable <span>packages</span></h2>
+                    <div class="title-head-subtitle">
+                        <p>Purchase Bitcoin using a credit card or with your linked bank account</p>
+                    </div>
+                </div>
+                <!-- Section Title Ends -->
+                <!-- Section Content Starts -->
+                <div class="row pricing-tables-content">
+                    <div class="pricing-container">
+                        <!-- Pricing Switcher Starts -->
+                        <div class="pricing-switcher">
+                            <p>
+                                <input type="radio" name="switch" value="buy" id="buy-1" checked>
+                                <label for="buy-1">BUY</label>
+                                <input type="radio" name="switch" value="sell" id="sell-1">
+                                <label for="sell-1">SELL</label>
+                                <span class="switch"></span>
+                            </p>
+                        </div>
+                        <!-- Pricing Switcher Ends -->
+                        <!-- Pricing Tables Starts -->
+                        <ul class="pricing-list bounce-invert">
+                            <li class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
+                                <ul class="pricing-wrapper">
+                                    <!-- Buy Pricing Table #1 Starts -->
+                                    <li data-type="buy" class="is-visible">
+                                        <header class="pricing-header">
+                                            <h2>GET 0.007  <span>For </span></h2>
+                                            <div class="price">
+                                                <span class="currency">₹</span>
+                                                <span class="value">100</span>
+                                            </div>
+                                        </header>
+                                        <footer class="pricing-footer">
+                                            <a href="#" class="btn btn-primary">ORDER NOW</a>
+                                        </footer>
+                                    </li>
+                                    <!-- Buy Pricing Table #1 Ends -->
+                                    <!-- Sell Pricing Table #1 Starts -->
+                                    <li data-type="sell" class="is-hidden">
+                                        <header class="pricing-header">
+                                            <h2>GET 100 USD <span>For </span></h2>
+
+                                            <div class="price">
+                                                <span class="currency">₹</span>
+                                                <span class="value">0.2</span>
+                                            </div>
+                                        </header>
+                                        <footer class="pricing-footer">
+                                            <a href="#" class="btn btn-primary">ORDER NOW</a>
+                                        </footer>
+                                    </li>
+                                    <!-- Sell Pricing Table #1 Ends -->
+                                </ul>
+                            </li>
+                            <li class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
+                                <ul class="pricing-wrapper">
+                                    <!-- Buy Pricing Table #2 Starts -->
+                                    <li data-type="buy" class="is-visible">
+                                        <header class="pricing-header">
+                                            <h2>GET 0.015 <span>For </span></h2>
+                                            <div class="price">
+                                                <span class="currency">₹</span>
+                                                <span class="value">300</span>
+                                            </div>
+                                        </header>
+                                        <footer class="pricing-footer">
+                                            <a href="#" class="btn btn-primary">ORDER NOW</a>
+                                        </footer>
+                                    </li>
+                                    <!-- Buy Pricing Table #2 Ends -->
+                                    <!-- Sell Pricing Table #2 Starts -->
+                                    <li data-type="sell" class="is-hidden">
+                                        <header class="pricing-header">
+                                            <h2>GET 1000 USD <span>For </span></h2>
+                                            <div class="price">
+                                                <span class="currency">₹</span>
+                                                <span class="value">0.5</span>
+                                            </div>
+                                        </header>
+                                        <footer class="pricing-footer">
+                                            <a href="#" class="btn btn-primary">ORDER NOW</a>
+                                        </footer>
+                                    </li>
+                                    <!-- Sell Pricing Table #2 Ends -->
+                                </ul>
+                            </li>
+                            <li class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
+                                <ul class="pricing-wrapper">
+                                    <!-- Buy Pricing Table #3 Starts -->
+                                    <li data-type="buy" class="is-visible">
+                                        <header class="pricing-header">
+                                            <h2>GET 0.031 <span>For </span></h2>
+                                            <div class="price">
+                                                <span class="currency">₹</span>
+                                                <span class="value">500</span>
+                                            </div>
+                                        </header>
+                                        <footer class="pricing-footer">
+                                            <a href="#" class="btn btn-primary">ORDER NOW</a>
+                                        </footer>
+                                    </li>
+                                    <!-- Buy Pricing Table #3 Ends -->
+                                    <!-- Yearlt Pricing Table #3 Starts -->
+                                    <li data-type="sell" class="is-hidden">
+                                        <header class="pricing-header">
+                                            <h2>GET 3000  <span>For </span></h2>
+
+                                            <div class="price">
+                                                <span class="currency">₹</span>
+                                                <span class="value">1</span>
+                                            </div>
+                                        </header>
+                                        <footer class="pricing-footer">
+                                            <a href="#" class="btn btn-primary">ORDER NOW</a>
+                                        </footer>
+                                    </li>
+                                    <!-- Sell Pricing Table #3 Ends -->
+                                </ul>
+                            </li>
+                            <li class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
+                                <ul class="pricing-wrapper">
+                                    <!-- Buy Pricing Table #4 Starts -->
+                                    <li data-type="buy" class="is-visible">
+                                        <header class="pricing-header">
+                                            <h2>GET 0.081  <span>For </span></h2>
+                                            <div class="price">
+                                                <span class="currency">₹</span>
+                                                <span class="value">1,000</span>
+                                            </div>
+                                        </header>
+                                        <footer class="pricing-footer">
+                                            <a href="#" class="btn btn-primary">ORDER NOW</a>
+                                        </footer>
+                                    </li>
+                                    <!-- Buy Pricing Table #4 Ends -->
+                                    <!-- Sell Pricing Table #4 Starts -->
+                                    <li data-type="sell" class="is-hidden">
+                                        <header class="pricing-header">
+                                            <h2>GET 9000 USD <span>For </span></h2>
+                                            <div class="price">
+                                                <span class="currency">₹</span>
+                                                <span class="value">2</span>
+                                            </div>
+                                        </header>
+                                        <footer class="pricing-footer">
+                                            <a href="#" class="btn btn-primary">ORDER NOW</a>
+                                        </footer>
+                                    </li>
+                                    <!-- Sell Pricing Table #4 Ends -->
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Pricing Ends -->
+        <!-- Bitcoin Calculator Section Starts 
+       <section class="analytics-section">
+    <div class="container">
+        <div class="row">
+
+           Title 
+            <div class="col-md-12 text-center">
+                <h2 class="title-head"><span>Fraud</span> Analytics</h2>
+                <p class="message">Filter transactions and visualize fraud insights</p>
+            </div>
+
+             Filters 
+            <div class="col-md-12 text-center mt-4">
+
+                <select id="riskFilter" class="form-input">
+                    <option value="ALL">All</option>
+                    <option value="LOW">Low Risk</option>
+                    <option value="MEDIUM">Medium Risk</option>
+                    <option value="HIGH">High Risk</option>
+                </select>
+
+                <select id="timeFilter" class="form-input">
+                    <option value="7">Last 7</option>
+                    <option value="30">Last 30</option>
+                </select>
+
+                <button onclick="loadGraph()" class="btn btn-primary">
+                    Show Analytics
+                </button>
+            </div>
+
+            Graph 
+            <div class="col-md-12 mt-5">
+                <canvas id="fraudChart"></canvas>
+            </div>
+
+        </div>
+    </div>
+</section>--->
+        <!-- Bitcoin Calculator Section Ends -->
+        <!-- Team Section Starts -->
+      
+        <!-- Team Section Ends -->
+        <!-- Quote and Chart Section Starts -->
+      
+        <!-- Quote and Chart Section Ends -->
+        <!-- Blog Section Starts -->
+        <!--  -->
+        <!-- Blog Section Ends -->
+        <!-- Call To Action Section Starts -->
+       
+
+        <div class="analytics-containerd">
+
+    <h3 class="analytics-titled"> Fraud Analytics Dashboard</h3>
+
+    <div class="analytics-gridd">
+
+        <!-- Pie Chart Card -->
+        <div class="graph-cardd">
+            <h4>Risk Distribution</h4>
+            <canvas id="riskChart"></canvas>
+        </div>
+
+        <!-- Line Chart Card -->
+        <div class="graph-cardd">
+            <h4>Transaction Trend</h4>
+            <canvas id="transactionChart"></canvas>
+        </div>
+
+    </div>
+
+</div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+const riskData = {{ risk | tojson }};
+const dates = {{ dates | tojson }};
+const amounts = {{ amounts | tojson }};
+
+// ================= PIE CHART =================
+new Chart(document.getElementById('riskChart'), {
+    type: 'doughnut',
+    data: {
+        labels: ['Low Risk', 'Medium Risk', 'High Risk'],
+        datasets: [{
+            data: [
+                riskData.LOW,
+                riskData.MEDIUM,
+                riskData.HIGH
+            ],
+            backgroundColor: [
+                '#28a745',  // green
+                '#ffc107',  // yellow
+                '#dc3545'   // red
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            legend: {
+                position: 'bottom'
+            }
+        }
+    }
+});
+
+
+// ================= LINE CHART =================
+new Chart(document.getElementById('transactionChart'), {
+    type: 'line',
+    data: {
+        labels: dates,
+        datasets: [{
+            label: 'Transaction Amount',
+            data: amounts,
+            fill: true,
+            tension: 0.4,
+            borderColor: '#007bff',
+            backgroundColor: 'rgba(0,123,255,0.1)',
+            pointBackgroundColor: '#007bff',
+            pointRadius: 5
+        }]
+    },
+    options: {
+        responsive: true,
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        },
+        plugins: {
+            legend: {
+                display: true
+            }
+        }
+    }
+});
+</script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+let chart;
+
+function loadGraph() {
+
+    const risk = document.getElementById("riskFilter").value;
+    const days = document.getElementById("timeFilter").value;
+
+    fetch(`/get-data?risk=${risk}&days=${days}`)
+        .then(res => res.json())
+        .then(data => {
+
+            if (chart) {
+                chart.destroy();
+            }
+
+            chart = new Chart(document.getElementById("fraudChart"), {
+                type: 'bar',
+                data: {
+                    labels: data.dates,
+                    datasets: [{
+                        label: 'Transaction Amount',
+                        data: data.amounts,
+                        backgroundColor: 'rgba(0, 123, 255, 0.6)'
+                    }]
+                }
+            });
+
+        });
+}
+</script>
+
+<script>
+// DEVICE DETECTION
+document.getElementById("device_change").value =
+    /Mobi|Android/i.test(navigator.userAgent) ? 0 : 1;
+
+//  HIGH ACCURACY LOCATION
+navigator.geolocation.getCurrentPosition(
+    pos => {
+        document.getElementById("latitude").value = pos.coords.latitude;
+        document.getElementById("longitude").value = pos.coords.longitude;
+    },
+    err => {
+        console.log("Location denied");
+    },
+    {
+        enableHighAccuracy: true,
+        timeout: 10000,
+        maximumAge: 0
+    }
+);
+
+// CAMERA
+navigator.mediaDevices.getUserMedia({ video: true })
+.then(stream => {
+    document.getElementById("video").srcObject = stream;
+});
+
+// FACE CAPTURE
+function captureImage() {
+    const canvas = document.getElementById("canvas");
+    const ctx = canvas.getContext("2d");
+
+    ctx.drawImage(document.getElementById("video"), 0, 0, 200, 150);
+
+    document.getElementById("image_data").value = canvas.toDataURL("image/png");
+    document.getElementById("biometric").value = "1";
+
+    document.querySelector("button[onclick='captureImage()']").innerText = "Captured ";
+}
+//    alert("")
+
+</script>
+{% endblock %}
