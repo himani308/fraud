@@ -425,7 +425,7 @@ model = joblib.load("fraud_model.pkl")
 
 
 def init_db():
-    conn = sqlite3.connect("transactions.db")
+    conn = sqlite3.connect("/tmp/transactions.db")
     cursor = conn.cursor()
 
     # # Users table
